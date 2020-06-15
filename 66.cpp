@@ -1,47 +1,77 @@
 #include <iostream>
 #include <iomanip>
-#include <cstdlib>
-#include <cmath>
-#include <string>
+#include<fstream>
+
+
+//Äåôèíèðàéòå êëàñ êîëè(cars), 
+//êîéòî èìà ñëåäíèòå ïðîìåíëèâè:
+// ìàðêà, ìîäåë, ãîäèíà íà ïðîèçâîäñòâî, öâÿò
+
+
 using namespace std;
-struct cars
-{
-    char  marka[50];
-    char  model[50];
-   char  tsvat[50];
-   char  gorivo[50];
-   int year;
+class cars
+{private:
+char marka[20];
+char model[20] ;
+int age;
+char color[10];
+public:
+void read();
+void print() const;
+int get_age() const;
+void print_fail() const;
 };
-void readcars(cars & s)
-{
-      char p[100];
-      cin.getline(p,100);
-       cout << "Marka:";
-        cin.getline(s.marka,50);
-        cout << "Model:";
-        cin.getline(s.model,50);
-         cout << "Tsvat:";
-         cin.getline(s.tsvat,50);
-         cout << "Gorivo:";
-         cin.getline(s.gorivo,50);
-         cout << "Godina na proizvodctvo: ";
-        cin >> s.year;
-         }
-void printcars(const cars &stud)
-{   cout<<setw(50)<< stud.marka<< setw(50)<< stud.model<< setw(50)<< stud.tsvat<< setw(50)<< stud.gorivo<< setw(50)<< stud.year<< setw(10)<<endl;
+
+
+void cars::read()
+{cout << "marka: ";
+cin>>marka;
+cout<<"model";
+cin>>model;
+cout<<"godina";
+cin>>age;
+cout<<"color";
+cin>>color;
 }
- int main()
-{ cars table[40];
-cout<<"Vavedete broia na kolite";
- int n;
-  cin>>n;
-  for(int i=0;i<n;i++)
- readcars(table[i]);
- cout<<"kolite sa \n"; 
-  for(int i=0;i<n;i++)
-   {   printcars(table[i]);
-   cout<<endl;
+void cars::print() const
+{cout<<setw(22)<<marka<<setw(22)<<model<<setw(6)<<age<<setw(10)<<color;
 }
- return 0;
+void cars::print_fail() const
+{ ofstream file_out("auto.txt",ios::app); 
+file_out<<setw(22)<<marka<<setw(22)<<model<<setw(6)<<age<<setw(10)<<color;
+file_out<<endl;
+}
+
+
+int cars::get_age() const
+{return age;
+}
+int main()
+{cars table[20];
+int n;
+cout<<"Broj na kolite";
+cin>>n;
+for(int i=0;i<n;i++)
+{table[i].read();
+
+}
+cout<<"\t\t\tCARS LIST\n\n";
+
+for(int i=0;i<n;i++)
+{table[i].print();
+cout<<endl;
+}
+   for(int i=0;i<n;i++)
+   {
+        table[i].print_fail();
+        cout<<endl;
+        
+        
+   }
+ 
+
+
+
+return 0;
 }
 
